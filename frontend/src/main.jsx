@@ -2,10 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-// ❌ REMOVE THIS LINE: import "./registerServiceWorker"; 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
+
+// Service Worker Registration Code
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((reg) => console.log("Service Worker Registered!", reg))
+      .catch((err) => console.log("Service Worker registration failed:", err));
+  });
+}
