@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import en from '../translations/en.json';
 import hi from '../translations/hi.json';
 
@@ -17,11 +17,12 @@ export const LanguageProvider = ({ children }) => {
     localStorage.getItem('agrovision-lang') || 'en'
   );
 
+  // Sync language with document metadata and load assets
   useEffect(() => {
     localStorage.setItem('agrovision-lang', lang);
     document.documentElement.lang = lang;
-    
-    // Load Hindi font only when needed
+    document.documentElement.dir = 'ltr'; // Defaulting to LTR
+
     if (lang === 'hi' && !document.getElementById('hindi-font')) {
       const link = document.createElement('link');
       link.id = 'hindi-font';
@@ -31,26 +32,30 @@ export const LanguageProvider = ({ children }) => {
     }
   }, [lang]);
 
-  const t = (key, options = {}) => {
+  // Optimized translation function with memoization and fallback logic
+  const t = useCallback((key, options = {}) => {
     const translations = lang === 'hi' ? hi : en;
-    let text = translations[key] || `[${key}]`;
+    let text = translations[key] || en[key] || key; // Fallback to English, then Key
     
-    // Variable replacement: t('recovery_time', { days: 14 })
     if (options.replace) {
       Object.entries(options.replace).forEach(([k, v]) => {
-        text = text.replace(`{${k}}`, v);
+        text = text.replace(new RegExp(`{${k}}`, 'g'), v);
       });
     }
     return text;
-  };
+  }, [lang]);
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     setLang(prev => prev === 'en' ? 'hi' : 'en');
-  };
+  }, []);
+
+  const value = useMemo(() => ({ lang, t, toggleLanguage }), [lang, t, toggleLanguage]);
 
   return (
-    <LanguageContext.Provider value={{ lang, t, toggleLanguage }}>
-      {children}
+    <LanguageContext.Provider value={value}>
+      <div style={{ fontFamily: lang === 'hi' ? "'Noto Sans Devanagari', sans-serif" : 'inherit' }}>
+        {children}
+      </div>
     </LanguageContext.Provider>
   );
 };

@@ -43,7 +43,8 @@ const LandingPage = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    // Force body background to match to eliminate any white flash/gaps
+    // FORCE BACKGROUND COLOR ON HTML & BODY TO KILL GAPS
+    document.documentElement.style.backgroundColor = "#041d13";
     document.body.style.backgroundColor = "#041d13";
     
     const handleScroll = () => {
@@ -53,7 +54,8 @@ const LandingPage = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.body.style.backgroundColor = ""; // Clean up
+      document.body.style.backgroundColor = ""; 
+      document.documentElement.style.backgroundColor = "";
     };
   }, []);
 
@@ -86,11 +88,15 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="bg-[#041d13] selection:bg-emerald-500 selection:text-white font-sans antialiased overflow-x-hidden">
+    /* Main Wrapper: bg color fixed and min-h-screen added */
+    <div className="bg-[#041d13] selection:bg-emerald-500 selection:text-white font-sans antialiased overflow-x-hidden min-h-screen">
       
-      {/* Hero Section: Enterprise Impact */}
-      {/* Negative margin-top added to pull section up under the navbar */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#041d13] -mt-20 pt-20">
+      {/* HERO FIX: 
+          1. Removed -mt-20 (Negative margin causes the black gap)
+          2. Ensure the section starts from the very top.
+          3. If your Navbar is absolute/fixed, pt-0 provides enough space.
+      */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#041d13] pt-0 md:pt-0">
         {/* Generative Background Pattern */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -281,28 +287,8 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* High-Impact CTA Section */}
-      <section className="py-40 relative overflow-hidden bg-[#041d13]">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/30 via-transparent to-transparent" />
-        <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-emerald-500/5 rounded-full blur-[150px] translate-x-1/2 -translate-y-1/2" />
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-6xl md:text-8xl font-black text-white mb-12 tracking-tighter leading-[0.85]">
-            Ready to <span className="text-emerald-500 uppercase">Revolutionize</span> <br/>Your Harvest?
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link 
-              to="/scan" 
-              className="group inline-flex items-center justify-center px-16 py-8 text-xl font-black bg-emerald-500 text-white rounded-[2rem] hover:bg-emerald-400 hover:scale-105 transition-all duration-500 shadow-[0_25px_60px_rgba(16,185,129,0.4)]"
-            >
-              INITIALIZE FIRST SCAN
-              <svg className="w-6 h-6 ml-4 transition-transform group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
+    
+      
 
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes sway {
