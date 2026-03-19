@@ -1,0 +1,38 @@
+{
+  "name": "AgroVision AI",
+  "short_name": "AgroVision",
+  "description": "Smart crop disease detection for farmers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F0F8E8",
+  "theme_color": "#2E8B57",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "193x193",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["productivity", "agriculture"],
+  "screenshots": [
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1896x868",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "367x802",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
