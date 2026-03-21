@@ -9,6 +9,11 @@ backend/venv311/
 .env
 .env.*
 
+
+backend/uploads/
+backend/instance/
+*.log
+
 # =========================
 # 🐍 PYTHON
 # =========================
