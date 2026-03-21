@@ -111,7 +111,6 @@ def create_app():
             "code": 404
         }), 404
 
-    @app.route('/')
     @app.route('/api/health')
     def status():
         """Health check endpoint for production monitoring."""
@@ -122,13 +121,26 @@ def create_app():
             "api_version": "1.0.0-PRO"
         }), 200
 
+    @app.route('/')
+    def home():
+        """Home endpoint for Vercel deployment."""
+        return jsonify({"message": "AgroVision AI Backend is Running! 🚀", "status": "ok"})
+
+    @app.route('/health')
+    def health():
+        """Simple health check for Vercel deployment."""
+        from datetime import datetime
+        return jsonify({"status": "healthy", "timestamp": datetime.now().isoformat()})
+
     return app
+
+# Export app for Vercel serverless deployment
+app = create_app()
 
 if __name__ == '__main__':
     # Suppress TensorFlow logging for cleaner terminal output
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     
-    app = create_app()
     port = int(os.getenv('PORT', 5000))
     debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
     
