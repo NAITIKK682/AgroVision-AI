@@ -1,8 +1,7 @@
-flask
-flask-cors
-flask-sqlalchemy
-flask-jwt-extended
-gunicorn
-vercel==37.4.0
-numpy
+﻿flask
+flask-cors
+flask-sqlalchemy
+flask-jwt-extended
+gunicorn
+numpy
 pandas
