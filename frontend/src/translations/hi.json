@@ -2,5 +2,12 @@
   "welcome": "स्वागत",
   "detect": "रोग का पता लगाएं",
   "history": "इतिहास",
-  "assistant": "एआई सहायक"
+  "assistant": "एआई सहायक",
+  "weather_title": "स्थानीय मौसम",
+  "weather_now": "आपके पास वास्तविक समय की स्थिति",
+  "humidity": "आर्द्रता",
+  "wind": "हवा",
+  "pressure": "दाब",
+  "feels_like": "ऐसा महसूस होता है",
+  "weather_risk": "मौसम रोग जोखिम"
 }

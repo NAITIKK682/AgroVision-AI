@@ -2,5 +2,12 @@
   "welcome": "Welcome",
   "detect": "Detect Disease",
   "history": "History",
-  "assistant": "AI Assistant"
+  "assistant": "AI Assistant",
+  "weather_title": "Local Weather",
+  "weather_now": "Real-time conditions near you",
+  "humidity": "Humidity",
+  "wind": "Wind",
+  "pressure": "Pressure",
+  "feels_like": "Feels Like",
+  "weather_risk": "Weather Disease Risk"
 }

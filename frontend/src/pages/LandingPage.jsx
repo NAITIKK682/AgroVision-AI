@@ -43,7 +43,6 @@ const LandingPage = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    // FORCE BACKGROUND COLOR ON HTML & BODY TO KILL GAPS
     document.documentElement.style.backgroundColor = "#041d13";
     document.body.style.backgroundColor = "#041d13";
     
@@ -88,16 +87,9 @@ const LandingPage = () => {
   ];
 
   return (
-    /* Main Wrapper: bg color fixed and min-h-screen added */
     <div className="bg-[#041d13] selection:bg-emerald-500 selection:text-white font-sans antialiased overflow-x-hidden min-h-screen">
       
-      {/* HERO FIX: 
-          1. Removed -mt-20 (Negative margin causes the black gap)
-          2. Ensure the section starts from the very top.
-          3. If your Navbar is absolute/fixed, pt-0 provides enough space.
-      */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-[#041d13] pt-0 md:pt-0">
-        {/* Generative Background Pattern */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
@@ -141,7 +133,7 @@ const LandingPage = () => {
                   to="/scan" 
                   className="group relative inline-flex items-center justify-center px-10 py-5 font-black text-white transition-all duration-500 bg-emerald-600 rounded-2xl hover:bg-emerald-500 shadow-[0_20px_40px_rgba(16,185,129,0.25)] hover:-translate-y-1 overflow-hidden"
                 >
-                  <span className="relative z-10 uppercase tracking-widest text-sm">{t('scan_crop').replace(/[\[\]()]/g, '')}</span>
+                  <span className="relative z-10 uppercase tracking-widest text-sm">{t('scan crop')?.replace(/[\[\]()]/g, '') || 'Scan Crop'}</span>
                   <svg className="w-5 h-5 ml-3 relative z-10 transition-transform group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -156,7 +148,6 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Parallax Product Teaser */}
             <div className="relative hidden lg:block perspective-2000">
               <div 
                 className="relative bg-gradient-to-br from-white/10 to-transparent backdrop-blur-3xl border border-white/10 rounded-[4rem] p-2 shadow-2xl transition-transform duration-700 ease-out"
@@ -185,7 +176,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Features: Bento Grid 2.0 */}
       <section className="py-32 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
@@ -226,7 +216,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Benefits & Intelligence */}
       <section className="py-32 bg-gray-50 border-y border-gray-100 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-32 items-center">
@@ -256,7 +245,10 @@ const LandingPage = () => {
               <div className="relative group">
                 <div className="absolute -inset-10 bg-emerald-500/10 blur-[120px] rounded-full group-hover:bg-emerald-500/20 transition-all duration-700" />
                 <div className="relative transform hover:scale-[1.03] hover:-rotate-1 transition-all duration-700">
-                  <WeatherCard className="shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] rounded-[3rem] overflow-hidden" />
+                  {/* FIXED WEATHER UI: Wrapper classes ensure high visibility and contrast */}
+                  <div className="bg-[#041d13] p-4 rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)]">
+                    <WeatherCard className="text-white bg-transparent" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -264,7 +256,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Workflow Section */}
       <section className="py-32 bg-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-5xl font-black text-[#041d13] mb-24 tracking-tighter italic underline decoration-emerald-500 decoration-8 underline-offset-8">Capture. Analyze. Heal.</h2>
@@ -286,9 +277,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-    
-      
 
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes sway {

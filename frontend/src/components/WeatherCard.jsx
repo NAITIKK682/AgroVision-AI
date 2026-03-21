@@ -28,11 +28,8 @@ const WeatherCard = ({ location = null }) => {
       }
 
       const data = await weatherService.getWeatherData(coords.lat, coords.lon);
-      setWeatherData(data);
-
-      // Calculate disease risks
-      const diseaseRisks = weatherService.calculateDiseaseRisk(data);
-      setRisks(diseaseRisks);
+      setWeatherData(data.weather);
+      setRisks(data.disease_risks);
     } catch (err) {
       console.error('Weather fetch error:', err);
       setError(err.message || 'Failed to fetch weather data');
@@ -71,9 +68,11 @@ const WeatherCard = ({ location = null }) => {
     <div className="agro-card">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-xl font-bold text-agro-dark">{t('weather_title')}</h3>
+          <h3 className="text-xl font-bold text-agro-dark">
+            {weatherData.location.city ? `${weatherData.location.city}, ${weatherData.location.country}` : t('weather_title')}
+          </h3>
           <p className="text-gray-600">
-            {weatherData.location.city}, {weatherData.location.country}
+            {t('weather_now')}
           </p>
         </div>
         <div className="text-right">
@@ -99,21 +98,21 @@ const WeatherCard = ({ location = null }) => {
           <div className="text-agro-green text-xl font-bold">
             🌡️ {weatherData.current.feelsLike}°C
           </div>
-          <div className="text-xs text-gray-600">Feels Like</div>
+          <div className="text-xs text-gray-600">{t('feels_like')}</div>
         </div>
 
         <div className="text-center p-3 bg-agro-light rounded-lg">
           <div className="text-agro-green text-xl font-bold">
             💨 {weatherData.current.windSpeed} m/s
           </div>
-          <div className="text-xs text-gray-600">Wind</div>
+          <div className="text-xs text-gray-600">{t('wind')}</div>
         </div>
 
         <div className="text-center p-3 bg-agro-light rounded-lg">
           <div className="text-agro-green text-xl font-bold">
             📊 {weatherData.current.pressure} hPa
           </div>
-          <div className="text-xs text-gray-600">Pressure</div>
+          <div className="text-xs text-gray-600">{t('pressure')}</div>
         </div>
       </div>
 

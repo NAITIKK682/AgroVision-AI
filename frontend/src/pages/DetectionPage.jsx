@@ -206,7 +206,7 @@ const DetectionPage = () => {
           </h1>
           <p className="text-emerald-100/50 font-medium max-w-2xl mx-auto leading-relaxed text-lg">
             High-precision plant pathology detection for enterprise agriculture. 
-            Optimized for 14 unique fruit and vegetable cultivars.
+            Optimized for Potato Leaf 3 Classes.
           </p>
         </header>
 

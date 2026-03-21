@@ -1,3 +1,5 @@
+import api from './api.js';
+
 export class WeatherService {
   async getCurrentLocation() {
     return new Promise((resolve, reject) => {
@@ -28,43 +30,15 @@ export class WeatherService {
 
   async getWeatherData(lat, lon) {
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`
-      );
+      const response = await api.get('/api/weather', {
+        params: { lat, lon }
+      });
       
-      if (!response.ok) {
-        throw new Error('Failed to fetch weather data');
-      }
-
-      const data = await response.json();
-      return this.formatWeatherData(data);
+      return response.data;
     } catch (error) {
       console.error('Weather fetch error:', error);
       throw error;
     }
-  }
-
-  formatWeatherData(data) {
-    return {
-      location: {
-        city: data.name,
-        country: data.sys.country,
-        coordinates: {
-          lat: data.coord.lat,
-          lon: data.coord.lon,
-        },
-      },
-      current: {
-        temperature: Math.round(data.main.temp),
-        feelsLike: Math.round(data.main.feels_like),
-        humidity: data.main.humidity,
-        pressure: data.main.pressure,
-        windSpeed: data.wind.speed,
-        description: data.weather[0].description,
-        icon: data.weather[0].icon,
-      },
-      timestamp: new Date().toISOString(),
-    };
   }
 
   // Calculate disease risk based on weather
@@ -108,40 +82,18 @@ export class WeatherService {
   // Get weather forecast (3 days)
   async getForecast(lat, lon) {
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`
-      );
+      const response = await api.get('/api/weather/forecast', {
+        params: { lat, lon }
+      });
       
-      if (!response.ok) {
+      if (!response || !response.data || response.status !== 200) {
         throw new Error('Failed to fetch forecast');
       }
 
-      const data = await response.json();
-      
-      // Group by day
-      const dailyData = {};
-      data.list.forEach((item) => {
-        const date = new Date(item.dt * 1000).toLocaleDateString();
-        if (!dailyData[date]) {
-          dailyData[date] = {
-            date,
-            temps: [],
-            humidity: [],
-            descriptions: [],
-          };
-        }
-        dailyData[date].temps.push(item.main.temp);
-        dailyData[date].humidity.push(item.main.humidity);
-        dailyData[date].descriptions.push(item.weather[0].description);
-      });
+      const data = response.data.forecast || [];
 
-      // Calculate averages
-      return Object.values(dailyData).map((day) => ({
-        date: day.date,
-        avgTemp: Math.round(day.temps.reduce((a, b) => a + b) / day.temps.length),
-        avgHumidity: Math.round(day.humidity.reduce((a, b) => a + b) / day.humidity.length),
-        conditions: [...new Set(day.descriptions)].join(', '),
-      })).slice(0, 3); // Next 3 days
+      // already formatted by backend, return directly
+      return data;
     } catch (error) {
       console.error('Forecast error:', error);
       throw error;
