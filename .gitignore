@@ -1,23 +1,66 @@
-# Environments
+# =========================
+# 🔐 ENV & VIRTUAL ENV
+# =========================
 .venv/
 venv/
+env/
+backend/venv/
+backend/venv311/
 .env
+.env.*
+
+# =========================
+# 🐍 PYTHON
+# =========================
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
 
-# Heavy Data
+# =========================
+# 📦 NODE / FRONTEND
+# =========================
+node_modules/
+dist/
+build/
+.eslintcache
+.next/
+out/
+
+# =========================
+# 📊 ML / DATA FILES
+# =========================
 dataset/
+data/
 *.h5
+*.hdf5
+*.keras
+*.pkl
+*.joblib
 *.zip
+*.tar.gz
 
-# OS Files
+# =========================
+# 📁 LOGS
+# =========================
+*.log
+logs/
+
+# =========================
+# 💻 OS FILES
+# =========================
 .DS_Store
 Thumbs.db
 
-# Frontend
-node_modules/
-dist/
-.eslintcache
+# =========================
+# 🔧 IDE / EDITOR
+# =========================
+.vscode/
+.idea/
+*.swp
 
-backend/
-*.keras
+# =========================
+# 🚀 DEPLOYMENT (OPTIONAL)
+# =========================
